@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Report - JUIT Helpsite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="reportstyle.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="homepage.html" class="logo">
+                <i class="fas fa-university"></i>
+                JUIT HELPSITE
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="homepage.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="outpass.html" class="nav-link">Outpass</a></li>
+                <li class="nav-item"><a href="report.html" class="nav-link active">Reports</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Report an Issue</h1>
+            <p class="page-description">Report any concerns or issues related to bullying, harassment, or misconduct.</p>
+        </div>
+    </div>
+
+    <section class="report-section">
+        <div class="form-container fade-in delay-1">
+            <h2 class="section-title">Submit a Report</h2>
+
+            <div class="status-message success" id="success-message">
+                <div class="status-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="status-content">
+                    Your report has been submitted successfully. We'll handle it with utmost confidentiality.
+                </div>
+                <button class="status-close" id="close-success">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="status-message error" id="error-message">
+                <div class="status-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="status-content">
+                    There was an error submitting your report. Please try again or contact us directly.
+                </div>
+                <button class="status-close" id="close-error">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="report-form">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name (Optional)</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name (can be anonymous)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="rollno" class="form-label">Roll No (Optional)</label>
+                    <input type="text" id="rollno" name="rollno" class="form-control" placeholder="Enter your roll number" />
+                </div>
+
+                <div class="form-group">
+                    <label for="room" class="form-label">Room Number</label>
+                    <input type="text" id="room" name="room" class="form-control" placeholder="Enter your room number" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="year" class="form-label">College Year</label>
+                    <select id="year" name="year" class="form-control" required>
+                        <option value="" disabled selected>Select your year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hostel" class="form-label">Hostel Number</label>
+                    <select id="hostel" name="hostel" class="form-control" required>
+                        <option value="" disabled selected>Select your hostel</option>
+                        <option value="1">Hostel 1</option>
+                        <option value="2">Hostel 2</option>
+                        <option value="3">Hostel 3</option>
+                        <option value="4">Hostel 4</option>
+                        <option value="5">Hostel 5</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="incident-type" class="form-label">Type of Incident</label>
+                    <select id="incident-type" name="incident-type" class="form-control" required>
+                        <option value="" disabled selected>Select incident type</option>
+                        <option value="bullying">Bullying</option>
+                        <option value="harassment">Harassment</option>
+                        <option value="ragging">Ragging</option>
+                        <option value="theft">Theft</option>
+                        <option value="damage">Property Damage</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label">Description of Incident</label>
+                    <textarea id="description" name="description" class="form-control" placeholder="Describe the incident in detail" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Report
+                </button>
+            </form>
+        </div>
+
+        <div class="info-container fade-in delay-2">
+            <h2 class="section-title">Important Information</h2>
+
+            <ul class="info-list">
+                <li class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Confidentiality</h3>
+                        <p>All reports are handled with strict confidentiality. Your identity will be protected unless you specify otherwise.</p>
+                    </div>
+                </li>
+
+                <li class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>No Retaliation Policy</h3>
+                        <p>JUIT has a strict no-retaliation policy against students who report incidents. You are protected.</p>
+                    </div>
+                </li>
+
+                <li class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Documentation</h3>
+                        <p>Please provide as much detail as possible, including dates, times, locations, and names of those involved if known.</p>
+                    </div>
+                </li>
+
+                <li class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Response Time</h3>
+                        <p>All reports are reviewed within 24-48 hours. Urgent matters are addressed immediately.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="emergency-box">
+                <div class="emergency-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="emergency-content">
+                    <h3>Emergency Contact</h3>
+                    <p>For immediate emergency situations, please contact campus security directly.</p>
+                    <a href="tel:+919876543210">
+                        <i class="fas fa-phone"></i> +91-9876543210
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="outpass.html"><i class="fas fa-chevron-right"></i> Outpass</a></li>
+                        <li><a href="report.html"><i class="fas fa-chevron-right"></i> Reports</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone"></i> +91-1792-239267</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@juit.ac.in</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Waknaghat, Solan, H.P.</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Follow us on social media to stay updated.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 JUIT Helpsite. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission
+        const reportForm = document.getElementById('report-form');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+        const closeSuccess = document.getElementById('close-success');
+        const closeError = document.getElementById('close-error');
+
+        reportForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Simulate form submission
+            const isValid = validateForm();
+
+            if (isValid) {
+                // Show success message (in a real app, you'd send the data to a server here)
+                successMessage.style.display = 'flex';
+                reportForm.reset();
+
+                // Scroll to the top to show the message
+                window.scrollTo({
+                    top: successMessage.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Show error message
+                errorMessage.style.display = 'flex';
+
+                // Scroll to the top to show the message
+                window.scrollTo({
+                    top: errorMessage.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        // Close messages
+        closeSuccess.addEventListener('click', function() {
+            successMessage.style.display = 'none';
+        });
+
+        closeError.addEventListener('click', function() {
+            errorMessage.style.display = 'none';
+        });
+
+        // Simple form validation
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = document.querySelectorAll('[required]');
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('error');
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+
+            return isValid;
+        }
+
+        // Clear error styling on input
+        const formInputs = document.querySelectorAll('.form-control');
+        formInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

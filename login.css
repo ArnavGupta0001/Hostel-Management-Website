@@ -1,0 +1,551 @@
+/* 
+ * Enhanced JUIT Login Page CSS
+ * Modern, effective styling with improved UX and visual hierarchy
+ */
+
+/* --- Base Reset & Typography --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* --- Animation Keyframes with Enhanced Easing --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+}
+
+/* --- Body Background with Enhanced Overlay --- */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/c/c9/Juit_o.jpg') no-repeat center center/cover;
+  position: relative;
+  overflow-x: hidden;
+  color: #1a2533;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 32, 96, 0.7), rgba(0, 10, 30, 0.85));
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+/* --- Container with Refined Shadow --- */
+.container {
+  display: flex;
+  width: 90%;
+  max-width: 900px;
+  min-height: 560px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.18),
+    0 40px 80px -20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+  animation: scaleUp 0.65s cubic-bezier(0.23, 1, 0.32, 1) 0.15s forwards;
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* --- Left Panel with Enhanced Image Treatment --- */
+.left {
+  flex: 1;
+  background: url('https://www.juit.ac.in/front/images/banner.jpg') no-repeat center center/cover;
+  position: relative;
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.left::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(
+    to top, 
+    rgba(15, 23, 42, 0.85), 
+    rgba(15, 23, 42, 0.4) 40%, 
+    rgba(15, 23, 42, 0.2) 80%
+  );
+  z-index: 1;
+  transition: background 0.5s ease;
+}
+
+.container:hover .left {
+  transform: scale(1.03);
+  transform-origin: center;
+}
+
+.container:hover .left::before {
+  background: linear-gradient(
+    to top, 
+    rgba(15, 23, 42, 0.9), 
+    rgba(15, 23, 42, 0.5) 40%, 
+    rgba(15, 23, 42, 0.25) 80%
+  );
+}
+
+/* --- Right Panel with Refined Background --- */
+.right {
+  flex: 1.2;
+  background: linear-gradient(180deg, #ffffff, #f8f9fa);
+  padding: 52px 42px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #1a2533;
+  position: relative;
+  z-index: 3;
+}
+
+/* --- Staggered Load Animations for Form Elements --- */
+.right > * {
+  opacity: 0;
+  animation: slideInUp 0.55s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+h2 {
+  margin-bottom: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  font-size: 2.2rem;
+  letter-spacing: -0.01em;
+  animation-delay: 0.4s;
+}
+
+.input-group {
+  margin-bottom: 24px;
+  position: relative;
+  animation-delay: 0.5s;
+}
+
+form .input-group:nth-of-type(1) {
+  animation-delay: 0.5s;
+}
+
+form .input-group:nth-of-type(2) {
+  animation-delay: 0.6s;
+}
+
+/* --- Label with Enhanced Typography --- */
+label {
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+/* --- Input Fields with Enhanced States --- */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  color: #1a2533;
+  font-size: 15px;
+  font-weight: 400;
+  transition: all 0.25s ease;
+}
+
+input[type="email"]:hover,
+input[type="password"]:hover {
+  border-color: #cbd5e1;
+  background-color: #fafbfc;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
+  background-color: #ffffff;
+  animation: pulse 2s infinite;
+}
+
+input::placeholder {
+  color: #94a3b8;
+  font-weight: 300;
+}
+
+/* --- Checkbox Group with Enhanced Visual Treatment --- */
+.checkbox-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13.5px;
+  color: #4b5563;
+  margin-bottom: 28px;
+  animation-delay: 0.7s;
+}
+
+.checkbox-group div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.checkbox-group label {
+  margin-bottom: 0;
+  font-weight: 400;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.checkbox-group a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.checkbox-group a:hover {
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.checkbox-group a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: #2563eb;
+  transition: width 0.25s ease;
+}
+
+.checkbox-group a:hover::after {
+  width: 100%;
+}
+
+/* --- Button Styles with Enhanced Visual Treatment --- */
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn:active {
+  transform: scale(0.97) translateY(1px);
+  box-shadow: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* --- Primary Button with Enhanced Gradient --- */
+.primary-btn {
+  background: linear-gradient(45deg, #1e40af, #3b82f6);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.35),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  animation-delay: 0.8s;
+  position: relative;
+}
+
+.primary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #2563eb, #60a5fa);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.primary-btn:hover {
+  box-shadow: 
+    0 6px 16px rgba(59, 130, 246, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.primary-btn:hover::before {
+  opacity: 1;
+}
+
+/* --- Google Button with Enhanced Visual Treatment --- */
+.google-btn {
+  background-color: #ffffff;
+  color: #ea4335;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  margin-top: 16px;
+  animation-delay: 0.9s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.google-btn::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23EA4335" d="M24 9.5c3.406 0 6.344 1.14 8.688 3.281l6.375-6.375C34.688 2.344 29.75 0 24 0 14.844 0 7.219 5.313 3 12.75l7.563 5.844C12.563 12.75 17.875 9.5 24 9.5z"/><path fill="%234285F4" d="M46.016 24.563c0-1.64-.156-3.218-.406-4.781H24v9.03h12.328c-.547 2.937-2.11 5.406-4.657 7.125l7.468 5.781C42.813 37.5 46.016 31.64 46.016 24.563z"/><path fill="%2334A853" d="M10.563 28.594C9.984 26.906 9.688 25.125 9.688 23.25s.297-3.656.875-5.344L3 12.75C1.094 16.188 0 20.094 0 24.25c0 4.156 1.094 8.062 3 11.5l7.563-5.844z"/><path fill="%23FBBC05" d="M24 48c5.75 0 10.688-1.875 14.25-5.031l-7.468-5.781c-1.828 1.219-4.187 1.938-6.782 1.938-6.125 0-11.437-4.125-13.406-9.719l-7.563 5.844C7.219 42.688 14.844 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>') center / contain no-repeat;
+  transition: transform 0.3s ease;
+}
+
+.google-btn:hover {
+  background-color: #f8fafc;
+  color: #c3280b;
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.google-btn:hover::before {
+  transform: scale(1.1);
+}
+
+/* --- Footer with Enhanced Styling --- */
+.footer {
+  text-align: center;
+  font-size: 12.5px;
+  color: #64748b;
+  margin-top: 32px;
+  animation-delay: 1.0s;
+}
+
+.footer a {
+  color: #3b82f6;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: all 0.25s ease;
+  position: relative;
+  font-weight: 500;
+}
+
+.footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: #3b82f6;
+  transition: width 0.25s ease;
+}
+
+.footer a:hover {
+  color: #2563eb;
+}
+
+.footer a:hover::after {
+  width: 100%;
+}
+
+/* --- Responsive Adjustments with Enhanced Mobile Experience --- */
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+    padding: 32px 16px;
+    background-attachment: fixed;
+  }
+  
+  .container {
+    flex-direction: column;
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    margin: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .left {
+    min-height: 180px;
+    flex: none;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+  }
+  
+  .right {
+    flex: none;
+    width: 100%;
+    padding: 36px 24px;
+    border-radius: 0 0 16px 16px;
+  }
+  
+  /* Simplified animations for mobile */
+  .right > * {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  
+  /* Adjusted animation delays */
+  h2 { 
+    animation-delay: 0.1s !important; 
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+  }
+  
+  form .input-group:nth-of-type(1) { 
+    animation-delay: 0.2s !important; 
+  }
+  
+  form .input-group:nth-of-type(2) { 
+    animation-delay: 0.3s !important; 
+  }
+  
+  .checkbox-group { 
+    animation-delay: 0.4s !important;
+    margin-bottom: 24px;
+  }
+  
+  .primary-btn { 
+    animation-delay: 0.5s !important; 
+  }
+  
+  .google-btn { 
+    animation-delay: 0.6s !important; 
+  }
+  
+  .footer { 
+    animation-delay: 0.7s !important;
+    margin-top: 28px;
+  }
+  
+  /* Adjusted input fields for mobile */
+  input[type="email"],
+  input[type="password"] {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  
+  /* Adjusted buttons for mobile */
+  .btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+/* Tablet optimization */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    max-width: 800px;
+  }
+  
+  .right {
+    padding: 48px 36px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Add loading effect to buttons */
+.btn:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Floating label animation option if needed */
+.input-group.floating {
+  position: relative;
+}
+
+.input-group.floating label {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  background: white;
+  padding: 0 5px;
+  font-size: 12px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+
+.input-group.floating input:focus + label,
+.input-group.floating input:not(:placeholder-shown) + label {
+  opacity: 1;
+}

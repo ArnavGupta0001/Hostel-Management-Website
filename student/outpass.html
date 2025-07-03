@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outpass - JUIT Helpsite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3a0ca3;
+            --secondary: #4cc9f0;
+            --accent: #f72585;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --error: #ef476f;
+            --text-dark: #2b2d42;
+            --text-light: #8d99ae;
+            --background: #f8f9fa;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.08);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -0.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1.25rem;
+            height: 0.25rem;
+            background-color: var(--primary);
+            border-radius: 0.25rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-description {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Upload Section */
+        .outpass-section {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .outpass-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .upload-container {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+        }
+
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--primary-light);
+            border-radius: var(--radius-md);
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: rgba(67, 97, 238, 0.05);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .upload-area:hover, .upload-area.drag-over {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-color: var(--primary);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .upload-subtext {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(67, 97, 238, 0.08);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Preview */
+        .preview-container {
+            display: none;
+            margin-top: 1.5rem;
+        }
+
+        .preview-container.show {
+            display: block;
+        }
+
+        .preview-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1rem;
+        }
+
+        .preview-name {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-size {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-remove {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--error);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .preview-remove:hover {
+            opacity: 0.8;
+        }
+
+        /* Instructions */
+        .instructions-container {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+        }
+
+        .instruction-list {
+            list-style: none;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .instruction-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .instruction-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .instruction-text h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .instruction-text p {
+            color: var(--text-light);
+            font-size: 0.9375rem;
+        }
+
+        /* Status Section */
+        .status-section {
+            padding: 2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .status-container {
+            background-color: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+        }
+
+        .status-title {
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .status-title i {
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .status-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .status-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .status-icon.pending {
+            background-color: rgba(255, 209, 102, 0.2);
+            color: var(--warning);
+        }
+
+        .status-icon.approved {
+            background-color: rgba(6, 214, 160, 0.2);
+            color: var(--success);
+        }
+
+        .status-icon.rejected {
+            background-color: rgba(239, 71, 111, 0.2);
+            color: var(--error);
+        }
+
+        .status-content {
+            flex-grow: 1;
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .status-date {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .status-message {
+            color: var(--text-light);
+            font-size: 0.9375rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+
+        .status-badge.pending {
+            background-color: rgba(255, 209, 102, 0.2);
+            color: #d4a40d;
+        }
+
+        .status-badge.approved {
+            background-color: rgba(6, 214, 160, 0.2);
+            color: var(--success);
+        }
+
+        .status-badge.rejected {
+            background-color: rgba(239, 71, 111, 0.2);
+            color: var(--error);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            font-size: 0.75rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--white);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Custom animation delays */
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .outpass-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-link {
+                font-size: 0.875rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="homepage.html" class="logo">
+                <i class="fas fa-university"></i>
+                JUIT HELPSITE
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="homepage.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="outpass.html" class="nav-link active">Outpass</a></li>
+                <li class="nav-item"><a href="report.html" class="nav-link">Reports</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Outpass Approval</h1>
+            <p class="page-description">Upload your outpass form for quick digital approval.</p>
+        </div>
+    </div>
+
+    <section class="outpass-section">
+        <div class="outpass-container">
+            <div class="upload-container fade-in delay-1">
+                <h2 class="section-title">Upload Outpass</h2>
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3 class="upload-text">Drag & Drop your outpass here</h3>
+                    <p class="upload-subtext">or click to browse files</p>
+                    <p class="upload-subtext">Supported formats: JPG, PNG, PDF (Max: 5MB)</p>
+                    <input type="file" id="file-upload" class="upload-input" accept="image/*, application/pdf">
+                </div>
+
+                <div class="preview-container" id="preview-container">
+                    <img src="" alt="Outpass Preview" class="preview-image" id="preview-image">
+                    <h4 class="preview-name" id="preview-name">Filename.jpg</h4>
+                    <p class="preview-size" id="preview-size">Size: 2.5MB</p>
+                    <button class="preview-remove" id="preview-remove">
+                        <i class="fas fa-trash-alt"></i> Remove file
+                    </button>
+                </div>
+
+                <button class="btn btn-primary" id="upload-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Outpass
+                </button>
+            </div>
+
+            <div class="instructions-container fade-in delay-2">
+                <h2 class="section-title">How It Works</h2>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <h3>Step 1: Fill the form</h3>
+                            <p>Download and fill the outpass form completely with all required details. Make sure to include proper dates, reason for leave, and contact information.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <h3>Step 2: Upload the form</h3>
+                            <p>Scan or take a clear photo of your filled form and upload it using the form on this page. Ensure all details are clearly visible.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <h3>Step 3: Wait for approval</h3>
+                            <p>Your request will be reviewed by the concerned warden. You'll receive a notification when your outpass is approved or rejected.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div class="instruction-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="instruction-text">
+                            <h3>Step 4: Get your outpass</h3>
+                            <p>Once approved, you can download the digital approved outpass or pick up the physical copy from the warden's office as per instructions.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="status-section">
+        <div class="status-container fade-in delay-3">
+            <h2 class="status-title">
+                <i class="fas fa-history"></i>
+                Recent Outpass Status
+            </h2>
+            <div class="status-item">
+                <div class="status-icon approved">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="status-content">
+                    <div class="status-header">
+                        <h3 class="status-name">Weekend Leave</h3>
+                        <span class="status-date">June 15, 2025</span>
+                    </div>
+                    <p class="status-message">Your weekend leave request has been approved by Dr. Rahul Shrivastava.</p>
+                    <div class="status-badge approved">
+                        <i class="fas fa-check-circle"></i> Approved
+                    </div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-icon pending">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="status-content">
+                    <div class="status-header">
+                        <h3 class="status-name">Medical Leave</h3>
+                        <span class="status-date">June 10, 2025</span>
+                    </div>
+                    <p class="status-message">Your medical leave request is pending review by the warden.</p>
+                    <div class="status-badge pending">
+                        <i class="fas fa-clock"></i> Pending
+                    </div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-icon rejected">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="status-content">
+                    <div class="status-header">
+                        <h3 class="status-name">Personal Leave</h3>
+                        <span class="status-date">May 28, 2025</span>
+                    </div>
+                    <p class="status-message">Your personal leave request was rejected due to insufficient documentation.</p>
+                    <div class="status-badge rejected">
+                        <i class="fas fa-times-circle"></i> Rejected
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="outpass.html"><i class="fas fa-chevron-right"></i> Outpass</a></li>
+                        <li><a href="report.html"><i class="fas fa-chevron-right"></i> Reports</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-phone"></i> +91-1792-239267</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@juit.ac.in</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Waknaghat, Solan, H.P.</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Follow us on social media to stay updated.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 JUIT Helpsite. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // File Upload Preview
+        const fileUpload = document.getElementById('file-upload');
+        const uploadArea = document.getElementById('upload-area');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImage = document.getElementById('preview-image');
+        const previewName = document.getElementById('preview-name');
+        const previewSize = document.getElementById('preview-size');
+        const previewRemove = document.getElementById('preview-remove');
+        const uploadBtn = document.getElementById('upload-btn');
+
+        // Handle file selection
+        fileUpload.addEventListener('change', function(e) {
+            handleFileSelect(e.target.files[0]);
+        });
+
+        // Handle drag over
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        // Handle drag leave
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+        });
+
+        // Handle drop
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            handleFileSelect(file);
+        });
+
+        // Handle file preview
+        function handleFileSelect(file) {
+            if (file) {
+                // Display file info
+                previewName.textContent = file.name;
+                previewSize.textContent = `Size: ${formatFileSize(file.size)}`;
+                
+                // Show preview for images
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // For PDFs or other file types
+                    previewImage.src = 'https://via.placeholder.com/300x200?text=PDF+Preview';
+                }
+                
+                // Show preview container
+                previewContainer.classList.add('show');
+            }
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Remove preview
+        previewRemove.addEventListener('click', function() {
+            fileUpload.value = '';
+            previewContainer.classList.remove('show');
+        });
+
+        // Upload button action (simulate)
+        uploadBtn.addEventListener('click', function() {
+            if (previewContainer.classList.contains('show')) {
+                alert('Your outpass has been submitted for approval!');
+                // You would send the file to the server here
+                
+                // Reset form after submission
+                fileUpload.value = '';
+                previewContainer.classList.remove('show');
+            } else {
+                alert('Please select a file to upload first.');
+            }
+        });
+    </script>
+</body>
+</html>

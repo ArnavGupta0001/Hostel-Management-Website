@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Warden Dashboard - Outpass Requests</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f0f4f8;
+            color: #121212;
+        }
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        /* Make logo link styling distinct or remove underline */
+        .logo a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px; /* Adjust gap as needed */
+            align-items: center; /* Vertically align items */
+        }
+        .navbar ul li {
+            position: relative; /* Needed for dropdown positioning */
+        }
+
+        /* General navbar link styles */
+        .navbar ul li a:not(.dropdown-trigger):not(.logo a) {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block; /* Ensure padding applies correctly */
+        }
+
+        .navbar ul li a:not(.dropdown-trigger):not(.logo a):hover,
+        .navbar ul li a:not(.dropdown-trigger):not(.logo a).active {
+            background: #1e90ff;
+            color: #fff;
+        }
+
+        /* Page Heading */
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 30px 50px 10px;
+            color: #1e90ff;
+        }
+        /* Table Container */
+        .table-container {
+            margin: 20px 50px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+        th, td {
+            padding: 18px 20px;
+            text-align: left;
+        }
+        thead {
+            background: #f5faff;
+            border-bottom: 2px solid #1e90ff;
+        }
+        tbody tr {
+            border-bottom: 1px solid #eee;
+        }
+        tbody tr:hover {
+            background-color: #f9f9ff;
+        }
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .view-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .view-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Dropdown styles - ENHANCED --- */
+        .dropdown {
+            position: relative; /* Keep this */
+            display: inline-block; /* Keep this */
+        }
+
+        /* Style the dropdown trigger link specifically */
+        .dropdown .dropdown-trigger {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer; /* Add cursor pointer */
+            display: inline-block; /* Make it behave like a block for padding */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+             white-space: nowrap; /* Prevent wrapping if text is long */
+        }
+        /* Ensure active/hover state applies correctly */
+        .dropdown .dropdown-trigger.active,
+        .dropdown:hover .dropdown-trigger {
+             background: #1e90ff;
+             color: #fff;
+        }
+
+
+        .dropdown-content {
+            /* Basic Positioning & Appearance */
+            display: block; /* Use visibility/opacity for hiding */
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 200px; /* Slightly wider */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Softer, deeper shadow */
+            z-index: 100;
+            border-radius: 8px; /* Keep */
+            right: 0; /* Align to the right */
+            top: calc(100% + 10px); /* Position below the button with gap */
+
+            /* Animation Properties */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px); /* Start slightly lower */
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+
+            /* Resetting default list styles */
+            list-style: none;
+            padding: 8px 0; /* Padding top/bottom */
+            margin: 0; /* Reset margin */
+            overflow: hidden; /* Contain children during animation */
+        }
+
+        /* Show state for the dropdown */
+        .dropdown-content.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0); /* Move to final position */
+        }
+
+        /* Styling individual dropdown items (the links) */
+        .dropdown-content a {
+            display: block; /* Make the link fill the li */
+            padding: 12px 20px; /* Comfortable padding */
+            font-size: 15px; /* Slightly smaller font */
+            color: #333; /* Darker text */
+            text-decoration: none;
+            white-space: nowrap; /* Prevent wrapping */
+            transition: background-color 0.2s ease, color 0.2s ease; /* Smooth hover */
+        }
+
+        /* Hover effect for dropdown items */
+        .dropdown-content a:hover {
+            background-color: #eef6ff; /* Light blue background on hover */
+            color: #1e90ff; /* Primary color text on hover */
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="warden.html">🏠 JUIT HELPSITE - Warden</a></div>
+        <ul>
+            <li class="dropdown">
+                <!-- Add class 'dropdown-trigger' and use href="#" -->
+                <a href="#" class="active dropdown-trigger" id="outpassDropdownBtn">Outpass Requests ▼</a>
+                <!-- Remove the inner ul, styles apply directly to links -->
+                <div class="dropdown-content" id="outpassDropdownContent">
+                     <a href="#">Pending Requests</a>
+                     <a href="#">Approved Requests</a>
+                     <a href="#">Rejected Requests</a>
+                </div>
+            </li>
+            <li><a href="warden_complaints.html">Student Complaints</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <h1 class="page-title">Outpass Requests</h1>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Destination</th>
+                    <th>Date Range</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <td>
+                        <strong>Priya Singh</strong><br />
+                        RA1911003010633
+                    </td>
+                    <td>Chandigarh</td>
+                    <td>2025-01-20 to 2025-01-22</td>
+                    <td><span class="status-badge pending">Pending</span></td>
+                    <td><a href="#" class="view-link">View Details</a></td>
+                </tr>
+                 <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+<script>
+    const dropdownBtn = document.getElementById('outpassDropdownBtn');
+    const dropdownContent = document.getElementById('outpassDropdownContent');
+
+    // Function to toggle dropdown visibility
+    function toggleDropdown(event) {
+        event.preventDefault(); // Prevent default link behavior (#)
+        event.stopPropagation(); // Prevent click from bubbling up to window listener immediately
+        dropdownContent.classList.toggle('show');
+
+        // Optional: Add an 'active-dropdown' class to the button for styling when open
+        dropdownBtn.classList.toggle('active-dropdown');
+    }
+
+    // Function to close dropdown
+    function closeDropdown() {
+        if (dropdownContent.classList.contains('show')) {
+            dropdownContent.classList.remove('show');
+            dropdownBtn.classList.remove('active-dropdown'); // Remove active state from button
+        }
+    }
+
+    // Event listener for the dropdown button
+    dropdownBtn.addEventListener('click', toggleDropdown);
+
+    // Close the dropdown if clicked outside
+    window.addEventListener('click', function(event) {
+        // Check if the click was outside the button AND outside the dropdown content
+        // We check !dropdownBtn.contains(event.target) because the button click is handled by its own listener
+        if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+           closeDropdown();
+        }
+    });
+
+    // Optional: Close dropdown when Escape key is pressed
+    window.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeDropdown();
+        }
+    });
+
+</script>
+</body>
+</html>
