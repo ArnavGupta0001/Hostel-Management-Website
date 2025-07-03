@@ -1,18 +1,30 @@
 {
-  "name": "final-minnor-project",
+  "name": "hostel-management-backend",
   "version": "1.0.0",
-  "description": "minor project",
+  "description": "Backend for Hostel Management Website using Node.js, Express, and MongoDB.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "author": "",
+  "keywords": [
+    "express",
+    "nodejs",
+    "mongodb",
+    "hostel-management",
+    "juit",
+    "backend"
+  ],
+  "author": "Arnav Gupta",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^2.2.0",
-    "dotenv": "^17.0.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^5.1.0",
     "mongoose": "^8.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
