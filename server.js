@@ -14,6 +14,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Serve static files for the website
+app.use(express.static(path.join(__dirname)));
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -42,7 +45,7 @@ const seedUsers = async () => {
 seedUsers();
 
 // Routes
-app.get('/', (req, res) => res.send('API is running'));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
